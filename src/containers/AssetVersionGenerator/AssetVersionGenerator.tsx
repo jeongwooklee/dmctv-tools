@@ -2,23 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Input from '../../components/Input';
 import styled from 'styled-components';
 import CopyToClipboard from '../../components/CopyToClipboard';
+import PageTitle from '../../components/PageTitle';
+import PageSubtitle from '../../components/PageSubtitle';
 
 const Container = styled.div`
   padding: 2em 1em;
   margin: 0 auto;
   max-width: 400px;
-`;
-
-const PageTitle = styled.h1`
-  font-size: 140%;
-`;
-
-const PageSubtitle = styled.h5`
-  margin-top: 0.6em;
-  margin-bottom: 2em;
-  font-weight: normal;
-  font-size: 60%;
-  opacity: 0.9;
 `;
 
 const InputWrapper = styled.div`
