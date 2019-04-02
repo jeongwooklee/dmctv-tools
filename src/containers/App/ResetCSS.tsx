@@ -144,6 +144,11 @@ export const reset = css`
     border: 0;
     box-sizing: border-box;
   }
+
+  body {
+    background: #2f3437;
+    color: rgba(255, 255, 255, 0.9);
+  }
 `;
 
 export const ResetCSS = createGlobalStyle`${reset}`;

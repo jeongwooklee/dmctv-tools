@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  ReactNode,
-  useRef,
-  SyntheticEvent,
-  useState
-} from 'react';
+import React, { FunctionComponent, ReactNode, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 export interface Props {
@@ -20,6 +14,12 @@ const HiddenTextArea = styled.textarea`
   position: absolute;
   top: -9999px;
   left: -9999px;
+`;
+
+const CopySuccess = styled.div`
+  padding-top: 0.4em;
+  font-size: 60%;
+  text-align: right;
 `;
 
 const CopyToClipboard: FunctionComponent<Props> = ({ text, children }) => {
@@ -38,7 +38,7 @@ const CopyToClipboard: FunctionComponent<Props> = ({ text, children }) => {
     <Container onClick={onClick}>
       <HiddenTextArea ref={textAreaEl} value={text} readOnly />
       {children}
-      {copySuccess}
+      <CopySuccess>{copySuccess}</CopySuccess>
     </Container>
   );
 };
