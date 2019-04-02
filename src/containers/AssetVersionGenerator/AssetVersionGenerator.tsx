@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import CopyToClipboard from '../../components/CopyToClipboard';
 import PageTitle from '../../components/PageTitle';
 import PageSubtitle from '../../components/PageSubtitle';
+import { removeDash } from '../../utils/removeDash';
+import RadioButton, { RadioButtonItem } from '../../components/RadioButton';
 
 const Container = styled.div`
   padding: 2em 1em;
@@ -31,9 +33,13 @@ const Result = styled.div`
   }
 `;
 
-const removeDash = (id: String) => id.replace(/-/g, '');
+const ASSET_TYPE = {
+  ASSET_VERSION: 'asset_version',
+  NG: 'ng'
+};
 
 function AssetVersionGenerator() {
+  const [assetType, setAssetType] = useState(ASSET_TYPE.ASSET_VERSION);
   const [assetVersion, setAssetVersion] = useState('');
   const [offerId, setOfferId] = useState('');
   const [creativeId, setCreativeId] = useState('');
@@ -45,7 +51,12 @@ function AssetVersionGenerator() {
      * &ltv_exp=offer_id.b1a3ac1026c74cc883a1db25e588f8e7
      * -creative_id.418e8a1dfe134978878be5c533c150ca
      */
-    let result = `asset_version=${assetVersion}&placement=video_unit`;
+    const assetTypeString =
+      assetType === ASSET_TYPE.ASSET_VERSION
+        ? ASSET_TYPE.ASSET_VERSION
+        : ASSET_TYPE.NG;
+
+    let result = `${assetTypeString}=${assetVersion}&placement=video_unit`;
     result += `&ltv_exp=offer_id.${removeDash(offerId)}`;
     result += `-creative_id.${removeDash(creativeId)}`;
     setResultString(result);
@@ -56,9 +67,28 @@ function AssetVersionGenerator() {
       <PageTitle>Asset version Generator</PageTitle>
       <PageSubtitle>v0.0.1</PageSubtitle>
       <InputWrapper>
+        <RadioButton
+          items={[
+            {
+              label: 'asset_ersion=',
+              value: ASSET_TYPE.ASSET_VERSION
+            },
+            {
+              label: 'ng=',
+              value: ASSET_TYPE.NG
+            }
+          ]}
+          onChange={(item: RadioButtonItem) => {
+            setAssetType(item.value);
+          }}
+        />
+      </InputWrapper>
+      <InputWrapper>
         <Input
           onChange={e => setAssetVersion(e.target.value)}
-          placeholder="Asset version"
+          placeholder={
+            assetType === ASSET_TYPE.ASSET_VERSION ? 'Asset version' : 'ng'
+          }
         />
       </InputWrapper>
       <InputWrapper>
