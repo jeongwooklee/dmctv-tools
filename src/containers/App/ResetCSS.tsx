@@ -1,4 +1,5 @@
 import { css, createGlobalStyle } from 'styled-components';
+import { BODY_COLOR } from '../../styles/variables';
 
 export const reset = css`
   /* http://meyerweb.com/eric/tools/css/reset/
@@ -145,9 +146,28 @@ export const reset = css`
     box-sizing: border-box;
   }
 
+  /* custom css */
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
   body {
-    background: #2f3437;
+    background: ${BODY_COLOR};
     color: rgba(255, 255, 255, 0.9);
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
   }
 `;
 

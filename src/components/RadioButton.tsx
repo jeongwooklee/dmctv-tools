@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { RADIOUS, Button } from './Button';
 
 export interface ButtonProps {
   isActive: boolean;
@@ -12,14 +13,13 @@ export interface RadioButtonItem {
 
 export interface Props {
   items: Array<RadioButtonItem>;
+  activeValue: string;
   onChange: Function;
 }
 
 const Container = styled.div`
   display: flex;
 `;
-
-const RADIOUS = 4;
 
 const activeCss = css`
   background: rgba(0, 0, 0, 0.25);
@@ -30,41 +30,38 @@ const defaultCss = css`
   color: rgba(255, 255, 255, 0.2);
 `;
 
-const borderColor = 'rgba(255, 255, 255, 0.2)';
-
-const Button = styled.button`
-  padding: 0.5em 0.8em;
+const TabButton = styled(Button)`
   ${(props: ButtonProps) => (props.isActive ? activeCss : defaultCss)};
-  border: 1px solid ${borderColor};
-  border-right: 0;
+  border-radius: 0;
   &:first-child {
     border-top-left-radius: ${RADIOUS}px;
     border-bottom-left-radius: ${RADIOUS}px;
   }
   &:last-child {
-    border-right: 1px solid ${borderColor};
     border-top-right-radius: ${RADIOUS}px;
     border-bottom-right-radius: ${RADIOUS}px;
   }
 `;
 
-const RadioButton: FunctionComponent<Props> = ({ items, onChange }) => {
-  const [activeValue, setActiveValue] = useState(items[0].value);
+const RadioButton: FunctionComponent<Props> = ({
+  items,
+  activeValue,
+  onChange
+}) => {
   const onButtonClick = (item: RadioButtonItem) => {
     onChange(item);
-    setActiveValue(item.value);
   };
 
   return (
     <Container>
       {items.map(item => (
-        <Button
+        <TabButton
           key={item.value}
           onClick={() => onButtonClick(item)}
           isActive={activeValue === item.value}
         >
           {item.label}
-        </Button>
+        </TabButton>
       ))}
     </Container>
   );
